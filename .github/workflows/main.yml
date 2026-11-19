@@ -48,10 +48,9 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           targetPlatform: StandaloneWindows64
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          versioning: None
 
       # 5. Upload the finished build
       - name: Upload Build
