@@ -10,6 +10,9 @@ jobs:
   testAndBuild:
     name: Test and Build
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
     steps:
       # 1. Checkout the repository
       - name: Checkout repository
