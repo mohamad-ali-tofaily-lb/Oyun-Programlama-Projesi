@@ -2,9 +2,9 @@ name: Unity CI
 
 on:
   push:
-    branches: [ main, feature/* ] # Runs on pushes to main and any feature branch
+    branches: [ main, feature/* ]
   pull_request:
-    branches: [ main ] # Runs on PRs targeting the main branch
+    branches: [ main ]
 
 jobs:
   testAndBuild:
@@ -29,25 +29,29 @@ jobs:
           restore-keys: |
             Library-
 
-      # 3. Run Tests (This is the "Testing" part your professor wants)
+      # 3. Run Tests
       - name: Run Tests
         uses: game-ci/unity-test-runner@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: editmode
 
-      # 4. Build the project (Optional, but proves the game compiles)
+      # 4. Build the project
       - name: Build Project
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           targetPlatform: StandaloneWindows64
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # 5. Upload the finished build
       - name: Upload Build
