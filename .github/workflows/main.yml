@@ -1,0 +1,54 @@
+name: Unity CI
+
+on:
+  push:
+    branches: [ main, feature/* ] # Runs on pushes to main and any feature branch
+  pull_request:
+    branches: [ main ] # Runs on PRs targeting the main branch
+
+jobs:
+  testAndBuild:
+    name: Test and Build
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # 2. Cache the Library folder to speed up future runs
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # 3. Run Tests (This is the "Testing" part your professor wants)
+      - name: Run Tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # 4. Build the project (Optional, but proves the game compiles)
+      - name: Build Project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows64
+
+      # 5. Upload the finished build
+      - name: Upload Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-Windows
+          path: build/StandaloneWindows64
