@@ -8,16 +8,20 @@ public class PlayerController : MonoBehaviour
     public float lookXLimit = 45f;
 
     [Header("Movement")]
-    public float walkSpeed = 4f;
-    public float runSpeed = 6f; // No walk, just run
-    public float crouchSpeed = 2f;
+    public float walkSpeed = 11f;
+    public float runSpeed = 6f; 
+    public float crouchSpeed = 5f;
     public float gravity = 20f;
-    public float jumpSpeed = 8f;
+    public float jumpSpeed = 13f;
 
     [Header("Crouch Settings")]
     public float crouchHeight = 0.8f;
-    public float standingHeight = 1.4f;
+    public float standingHeight = 1.8f;
     public float crouchTransitionSpeed = 10f;
+    
+    [Header("Camera Settings")]
+    [Tooltip("Lower this value if the camera is too high. Try -0.2 or -0.3")]
+    public float cameraHeightOffset = -0.2f; 
 
     private CharacterController characterController;
     private Vector3 moveDirection = Vector3.zero;
@@ -29,38 +33,32 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         currentHeight = standingHeight;
-        // Lock and hide the cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        // --- MOUSE LOOK ---
+        // 🚨 PAUSE FIX: Stop processing movement/looking if the game is paused
+        if (PauseMenu.GameIsPaused) return;
+
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
-        // --- CROUCHING ---
-        if (Input.GetKeyDown(KeyCode.C)) // Press C to toggle crouch
-        {
-            isCrouching = !isCrouching;
-        }
+        if (Input.GetKeyDown(KeyCode.C)) isCrouching = !isCrouching;
 
-        // Smoothly adjust the CharacterController's height
         float targetHeight = isCrouching ? crouchHeight : standingHeight;
         currentHeight = Mathf.Lerp(currentHeight, targetHeight, Time.deltaTime * crouchTransitionSpeed);
         characterController.height = currentHeight;
 
-        // Adjust camera position to match height
-        playerCamera.transform.localPosition = new Vector3(0, currentHeight - 0.2f, 0);
+        // HEIGHT FIX APPLIED HERE
+        playerCamera.transform.localPosition = new Vector3(0, currentHeight + cameraHeightOffset, 0);
 
-        // --- MOVEMENT & JUMPING ---
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
-        // No walking, only running (or crouch speed)
         float curSpeedX = isCrouching ? crouchSpeed : runSpeed;
         float curSpeedY = isCrouching ? crouchSpeed : runSpeed;
 
@@ -68,21 +66,13 @@ public class PlayerController : MonoBehaviour
         moveDirection = (forward * Input.GetAxis("Vertical") * curSpeedX) + (right * Input.GetAxis("Horizontal") * curSpeedY);
 
         if (Input.GetButton("Jump") && characterController.isGrounded)
-        {
             moveDirection.y = jumpSpeed;
-        }
         else
-        {
             moveDirection.y = movementDirectionY;
-        }
 
-        // Apply gravity
         if (!characterController.isGrounded)
-        {
             moveDirection.y -= gravity * Time.deltaTime;
-        }
 
-        // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
     }
 }

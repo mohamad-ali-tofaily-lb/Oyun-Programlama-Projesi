@@ -3,29 +3,29 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
-    private float currentHealth;
+    public float currentHealth { get; private set; }
+
+    private EnemyAI ai;
 
     void Start()
     {
         currentHealth = maxHealth;
+        ai = GetComponent<EnemyAI>();
     }
 
-    // This is the function the player will call
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
         Debug.Log("<color=red>ENEMY HIT! Health: " + currentHealth + "</color>");
+        
+        if (ai != null) ai.ReceiveReward(-10f); // Negative reward for taking damage
 
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
     }
 
     void Die()
     {
         Debug.Log("Enemy Died!");
-        // We will add death animations later. For now, just make him disappear.
         gameObject.SetActive(false); 
     }
 }
