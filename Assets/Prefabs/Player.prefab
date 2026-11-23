@@ -168,14 +168,15 @@ MonoBehaviour:
   playerCamera: {fileID: 3647761473352877146}
   lookSpeed: 2
   lookXLimit: 45
-  walkSpeed: 4
+  walkSpeed: 30
   runSpeed: 6
-  crouchSpeed: 2
+  crouchSpeed: 15
   gravity: 20
   jumpSpeed: 8
   crouchHeight: 1
   standingHeight: 2
   crouchTransitionSpeed: 10
+  cameraHeightOffset: -0.2
 --- !u!114 &2639811227790663637
 MonoBehaviour:
   m_ObjectHideFlags: 0
