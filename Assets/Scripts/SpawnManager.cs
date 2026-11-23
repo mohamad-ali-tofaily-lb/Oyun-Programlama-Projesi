@@ -5,7 +5,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform[] spawnPoints;
     public Transform player;
-    public float timeBetweenSpawns = 10f;
+    public float timeBetweenSpawns = 15f; 
     public float startDelay = 2f;
 
     void Start()
@@ -22,10 +22,7 @@ public class SpawnManager : MonoBehaviour
 
         GameObject newEnemy = Instantiate(enemyPrefab, chosenPoint.position, chosenPoint.rotation);
 
-        // Assign the player to the new AI Brain and Controller
-        EnemyAI aiScript = newEnemy.GetComponent<EnemyAI>();
-        if (aiScript != null) aiScript.player = player;
-
+        // Inject the player reference into the Controller
         EnemyController controllerScript = newEnemy.GetComponent<EnemyController>();
         if (controllerScript != null) controllerScript.player = player;
     }

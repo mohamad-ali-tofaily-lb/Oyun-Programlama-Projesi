@@ -9,7 +9,6 @@ public class EnemyController : MonoBehaviour
     
     private NavMeshAgent agent;
     private Animator animator;
-    private EnemyAI ai;
 
     public float enemySpeed = 9f; 
 
@@ -17,7 +16,6 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        ai = GetComponent<EnemyAI>();
         agent.speed = enemySpeed; 
     }
 
@@ -63,7 +61,6 @@ public class EnemyController : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(10f);
-                if (ai != null) ai.ReceiveReward(10f); // Positive reward for hitting player
             }
         }
     }
