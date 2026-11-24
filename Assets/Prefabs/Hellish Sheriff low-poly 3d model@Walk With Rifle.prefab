@@ -4973,6 +4973,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0629ae453c29f634ab951a5d5eb02b83, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7655572131071345399}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0629ae453c29f634ab951a5d5eb02b83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7629815574371205034}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0629ae453c29f634ab951a5d5eb02b83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4763556586405547114}
   m_SourcePrefab: {fileID: 100100000, guid: 0629ae453c29f634ab951a5d5eb02b83, type: 3}
 --- !u!4 &3234290234253053015 stripped
 Transform:
@@ -5155,6 +5161,33 @@ MonoBehaviour:
   muzzleFlash: {fileID: 7740824781049192968}
   gunAudio: {fileID: 2928401007950632515}
   enemySpeed: 9
+--- !u!114 &-7629815574371205034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4149579761113222862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9288f00de928ce4caca54c07bde005d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 100
+--- !u!114 &-4763556586405547114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4149579761113222862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a58c5b797e3e7488895f22cdc0aa55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  player: {fileID: 0}
+  decisionInterval: 1.5
 --- !u!1001 &7018881224297827989
 PrefabInstance:
   m_ObjectHideFlags: 0
