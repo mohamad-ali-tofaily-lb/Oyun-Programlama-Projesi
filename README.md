@@ -27,7 +27,7 @@ Oyun bir **Birinci Şahıs Nişancı (FPS)** oyunudur. Haritanın rastgele belir
 
 ## 🔗 Bağlantılar (Links)
 *   **🎥 Oynanış Videosu (2-5 Dakika):** https://youtu.be/yqWwWuoIOdg
-*   **🕹️ Oynanabilir Oyun (Itch.io):** [Itch.io Sayfası Linki Buraya Gelecek](BURAYA_ITCH_IO_LINKI_EKLE)
+*   **🕹️ Oynanabilir Oyun (Itch.io):** https://oyun-programlama-projesi.itch.io/oyun-programlama-projesi
 
 ---
 *Bu proje Bursa Teknik Üniversitesi, Bilgisayar Mühendisliği BLM0364 Oyun Programlama dersi kapsamında geliştirilmiştir.*
